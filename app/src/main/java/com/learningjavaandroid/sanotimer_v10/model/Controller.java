@@ -3,6 +3,8 @@ package com.learningjavaandroid.sanotimer_v10.model;
 
 import java.util.List;
 
+// 23.03.2023 - just a dummy comment here to test out the integration of Android Studio with GitHub.
+
 // 01.02.2023 - a class that models an irrigation control device.
 // 01.02.2023 - TODO: want to implement this as a singleton.
 public class Controller {
