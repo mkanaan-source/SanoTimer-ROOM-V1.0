@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SanoTimer-V1.0</string>
+    <string name="dayMonday">MON</string>
+    <string name="dayTuesday">TUE</string>
+    <string name="dayWednesday">WED</string>
+    <string name="dayThursday">THU</string>
+    <string name="dayFriday">FRI</string>
+    <string name="daySaturday">SAT</string>
+    <string name="daySunday">SUN</string>
+    <string name="weekly_sch_view_title">Weekly Schedule</string>
 </resources>
