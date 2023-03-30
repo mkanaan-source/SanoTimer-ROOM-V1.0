@@ -8,13 +8,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 public class DailyScheduleBottomSheetFragment extends BottomSheetDialogFragment
         implements View.OnClickListener {
 
     private TextView bottomSheetTextView; // 28.03.2023 - this is just the placeholder textView we put on the fragment.
+
+    // 30.03.2023 - now let's bring the floating action button into the mix...
+    private FloatingActionButton addNewScheduleFab;
 
     // 27.03.2023 - need to have this empty constructor in place
     public DailyScheduleBottomSheetFragment() {
@@ -31,6 +39,15 @@ public class DailyScheduleBottomSheetFragment extends BottomSheetDialogFragment
 
         // 28.03.2023 - initialize the textView instance variable on this view (fragment, actually).
         bottomSheetTextView = view.findViewById(R.id.bottom_sheet_textview);
+
+        // 30.03.2023 - now bringing the floating action button online by initializing....
+        addNewScheduleFab = view.findViewById(R.id.add_schedule_item_fab);
+
+        // 30.03.2023 .....and adding on its onClickListener
+        addNewScheduleFab.setOnClickListener(fabView -> {
+            showTimePickerDialog(fabView);
+        });
+
         return view;
     }
 
@@ -38,4 +55,13 @@ public class DailyScheduleBottomSheetFragment extends BottomSheetDialogFragment
     public void onClick(View v) {
 
     }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new SanoTimerTimePickerDialogFragment();
+        newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
+    }
+
+
+
+
 }

@@ -8,4 +8,6 @@
     <string name="daySaturday">SAT</string>
     <string name="daySunday">SUN</string>
     <string name="weekly_sch_view_title">Weekly Schedule</string>
+    <string name="floatingActionButtonDescription">floating action button to add a new daily schedule item</string>
+    <string name="test_text">Test - here is daily schedule</string>
 </resources>
