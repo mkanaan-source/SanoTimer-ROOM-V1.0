@@ -10,4 +10,8 @@
     <string name="weekly_sch_view_title">Weekly Schedule</string>
     <string name="floatingActionButtonDescription">floating action button to add a new daily schedule item</string>
     <string name="test_text">Test - here is daily schedule</string>
+    <string name="sch_programmer_textview">Add Irrigation Schedule</string>
+    <string name="sch_programmer_start_time">Start Time</string>
+    <string name="sch_prog_stop_time_text">Stop Time</string>
+    <string name="sch_prog_add_item_button">Add Schedule Item</string>
 </resources>

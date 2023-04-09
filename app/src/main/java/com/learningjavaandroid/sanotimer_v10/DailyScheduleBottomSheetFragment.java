@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.learningjavaandroid.sanotimer_v10.model.IrrigationViewModel;
 
 import java.util.Objects;
 
@@ -23,6 +24,9 @@ public class DailyScheduleBottomSheetFragment extends BottomSheetDialogFragment
 
     // 30.03.2023 - now let's bring the floating action button into the mix...
     private FloatingActionButton addNewScheduleFab;
+
+
+
 
     // 27.03.2023 - need to have this empty constructor in place
     public DailyScheduleBottomSheetFragment() {

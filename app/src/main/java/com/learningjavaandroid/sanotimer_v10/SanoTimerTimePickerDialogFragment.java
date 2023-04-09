@@ -1,5 +1,6 @@
 package com.learningjavaandroid.sanotimer_v10;
 
+
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -10,10 +11,16 @@ import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.learningjavaandroid.sanotimer_v10.model.DailySchedule;
+import com.learningjavaandroid.sanotimer_v10.model.IrrigationViewModel;
+import com.learningjavaandroid.sanotimer_v10.util.Utils;
+
 import java.util.Calendar;
 
 public class SanoTimerTimePickerDialogFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -30,23 +37,25 @@ public class SanoTimerTimePickerDialogFragment extends DialogFragment
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
         // 30.03.2023 - I BELIEVE this is where we will add the code to save the time to the database.
-        Log.d("TIME_SET", "onTimeSet: " + " hour set: " + hourOfDay
-                + " minute set: " + minute);
-        // 31.03.2023 - more test code....to format hour and day as string in the form "HH:MM".
-        String setTime = hourOfDay + ":" + minute;
-        // 31.03.2023 - ok....now let's see if we can unpack the string to get hour and minute
-        // 01.04.2023 - first set the string splitter object with : as the delimiter
-        // TODO - 01.04.2023 - move this code to a simple utils method.
-        TextUtils.SimpleStringSplitter stringSplitter =
-                new TextUtils.SimpleStringSplitter(':');
-        // 01.04.2023 - set the text to split.
-        stringSplitter.setString(setTime);
+//        Log.d("TIME_SET", "onTimeSet: " + " hour set: " + hourOfDay
+//                + " minute set: " + minute);
+        // 03.04.2023 - test the Utils.timeFromIntToString() method to convert hour and minute
+        // into a string of the form "HH:MM".
+//        String setTime = Utils.timeFromIntToString(hourOfDay, minute);
+//        Log.d("TIME_SET_3", "onTimeSet: " + setTime);
 
-        // 01.04.2023 - now split!
-        // TODO 01.04.2023 - move this code to a simple utils method.
-        int testHour = Integer.parseInt(stringSplitter.next());
-        int testMinute = Integer.parseInt(stringSplitter.next());
-        Log.d("TIME_SET_2", "onTimeSet: " + " testHour: " + testHour
-                + " testMinute: " + testMinute);
+       // 03.04.2023 - now let's test the Utils.timeFromStringToInt() method.
+//        int[] hhMM = Utils.timeFromStringToInt(setTime);
+//        Log.d("TIME_SET_4", "onTimeSet: hours: " + hhMM[0] + " minutes: " + hhMM[1]);
+
+        // 04.04.2023 - now let's see if we can write something into the database for testing.
+//        int stopMinute = minute + 30; // 04.04.2023 - set stop time = start time + 30 mins just for testing.
+//        int stopHour = hourOfDay;
+//        String startTime = Utils.timeFromIntToString(hourOfDay, minute);
+//        String stopTime = Utils.timeFromIntToString(stopHour, stopMinute);
+
+//        DailySchedule dailySchedule = new DailySchedule("ON BAHCE", 3,
+//                true, 1, startTime, stopTime);
+//        irrigationViewModel.insert(dailySchedule);
     }
 }

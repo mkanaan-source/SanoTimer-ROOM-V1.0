@@ -60,29 +60,29 @@ public abstract class IrrigationRoomDatabase extends RoomDatabase {
                         // the first time the database is created, just so you have something you
                         // can work with......just in case you wish to do so.
                         // 11.02.2023 - well....here it is. You can delete all this later.
-                        DailySchedule dailySchedule = new DailySchedule("ARKA BAHCE",
-                                1, true, 1, 0600, 0630);
-                        irrigationScheduleDao.insert(dailySchedule);
-
-                        dailySchedule = new DailySchedule("ARKA BAHCE",
-                                1, true, 1, 1700, 1730);
-                        irrigationScheduleDao.insert(dailySchedule);
-
-                        dailySchedule = new DailySchedule("ARKA BAHCE",
-                                1, false, 2, 9999, 9999);
-                        irrigationScheduleDao.insert(dailySchedule);
-
-                        dailySchedule = new DailySchedule("ARKA BAHCE",
-                                2, true, 1, 0700, 0730);
-                        irrigationScheduleDao.insert(dailySchedule);
-
-                        dailySchedule = new DailySchedule("ARKA BAHCE",
-                                2, true, 1, 1800, 1830);
-                        irrigationScheduleDao.insert(dailySchedule);
-
-                        dailySchedule = new DailySchedule("ARKA BAHCE",
-                                2, false, 2, 9999, 9999);
-                        irrigationScheduleDao.insert(dailySchedule);
+//                        DailySchedule dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                1, true, 1, 0600, 0630);
+//                        irrigationScheduleDao.insert(dailySchedule);
+//
+//                        dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                1, true, 1, 1700, 1730);
+//                        irrigationScheduleDao.insert(dailySchedule);
+//
+//                        dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                1, false, 2, 9999, 9999);
+//                        irrigationScheduleDao.insert(dailySchedule);
+//
+//                        dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                2, true, 1, 0700, 0730);
+//                        irrigationScheduleDao.insert(dailySchedule);
+//
+//                        dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                2, true, 1, 1800, 1830);
+//                        irrigationScheduleDao.insert(dailySchedule);
+//
+//                        dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                2, false, 2, 9999, 9999);
+//                        irrigationScheduleDao.insert(dailySchedule);
 
                     });
                 }

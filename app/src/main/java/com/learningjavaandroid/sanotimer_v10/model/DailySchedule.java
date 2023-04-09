@@ -27,18 +27,20 @@ public class DailySchedule {
     @ColumnInfo(name = "Day")
     private int day;
 
+    // 04.04.2023 - this is now a string of the form "HH:MM".
     @ColumnInfo(name = "startTime")
-    private int startTime;
+    private String startTime;
 
+    // 04.04.2023 - this is now a string of the form "HH:MM".
     @ColumnInfo(name = "stopTime")
-    private int stopTime;
+    private String stopTime;
 
     // 01.02.2023 - constructors
     public DailySchedule() {
     }
 
     public DailySchedule(@NonNull String controllerId, int valveId,
-                         @NonNull Boolean willWork, int day, int startTime, int stopTime) {
+                         @NonNull Boolean willWork, int day, String startTime, String stopTime) {
         this.controllerId = controllerId;
         this.valveId = valveId;
         this.willWork = willWork;
@@ -88,19 +90,19 @@ public class DailySchedule {
         this.day = day;
     }
 
-    public int getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public int getStopTime() {
+    public String getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(int stopTime) {
+    public void setStopTime(String stopTime) {
         this.stopTime = stopTime;
     }
 }
