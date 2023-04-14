@@ -9,8 +9,26 @@ public class Utils {
 
     // 03.04.2023 - the method below takes two int's for the hour and minute and converts it into
     // a string in the form "HH:MM".
+    // 14.04.2023 - made a few changes on this method so that when the user enters a time like
+    // 09:00 or 09:05, the resulting string output will actually be set to something like '09:00' and
+    // not something non-intuitive like '9:0' or '9:5' :).
+
     public static String timeFromIntToString(int hour, int minute) {
-        return hour + ":" + minute;
+        String hourAsString;
+        String minuteAsString;
+        if ((hour >= 0) && (hour <= 9)) {
+            hourAsString = "0" + hour;
+        } else {
+            hourAsString = String.valueOf(hour);
+        }
+
+        if ((minute >= 0) && (minute <= 9)) {
+            minuteAsString = "0" + minute;
+        } else {
+            minuteAsString = String.valueOf(minute);
+        }
+
+        return hourAsString + ":" + minuteAsString;
     }
 
     // 03.04.2023 - the method below takes a string for the time (in the form "HH:MM") and
