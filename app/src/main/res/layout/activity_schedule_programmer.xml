@@ -7,10 +7,9 @@
     tools:context=".ScheduleProgrammer">
 
     <TextView
-        android:id="@+id/textview1"
-        android:layout_width="285dp"
-        android:layout_height="34dp"
-        android:text="@string/sch_programmer_textview"
+        android:id="@+id/sch_program_textview"
+        android:layout_width="316dp"
+        android:layout_height="80dp"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -47,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview1" />
+        app:layout_constraintTop_toBottomOf="@+id/sch_program_textview" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sch_prog_add_start_time_fab"

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.learningjavaandroid.sanotimer_v10.data.IrrigationScheduleDao;
@@ -16,6 +17,10 @@ import java.util.concurrent.Executors;
 
 // 07.02.2023 - this is the class that will model a SINGLE instance of ROOM db for this app.
 @Database(entities={DailySchedule.class}, version = 1, exportSchema = false)
+
+// 24.04.2023 - specify the class for type-conversion functions.
+@TypeConverters({Converter.class})
+
 public abstract class IrrigationRoomDatabase extends RoomDatabase {
 
     public abstract IrrigationScheduleDao irrigationScheduleDao();
@@ -60,9 +65,9 @@ public abstract class IrrigationRoomDatabase extends RoomDatabase {
                         // the first time the database is created, just so you have something you
                         // can work with......just in case you wish to do so.
                         // 11.02.2023 - well....here it is. You can delete all this later.
-                        DailySchedule dailySchedule = new DailySchedule("ARKA BAHCE",
-                                1, true, 1, "06:00", "06:30");
-                        irrigationScheduleDao.insert(dailySchedule);
+//                        DailySchedule dailySchedule = new DailySchedule("ARKA BAHCE",
+//                                1, true, 1, "06:00", "06:30");
+//                        irrigationScheduleDao.insert(dailySchedule);
 //
 //                        dailySchedule = new DailySchedule("ARKA BAHCE",
 //                                1, true, 1, 1700, 1730);

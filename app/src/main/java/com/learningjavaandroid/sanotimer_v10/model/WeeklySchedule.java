@@ -5,52 +5,72 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.learningjavaandroid.sanotimer_v10.DailyScheduleBottomSheetFragment;
 import com.learningjavaandroid.sanotimer_v10.R;
 import com.learningjavaandroid.sanotimer_v10.ScheduleProgrammer;
 
-// 28.03.2023 - remember: for now, our ONLY objective is to tie one of the day buttons to the
-// bottom sheet fragment (specfied by DailyScheduleBottomSheetFragment class).
+// 26.04.2023 - we deleted a bunch of stuff since we changed the layout of the
+// activity_weekly_schedule.xml file. The backend code now reflects these changes.
+
 public class WeeklySchedule extends AppCompatActivity {
 
-    private Button weeklyScheduleMondayButton;
-    private DailyScheduleBottomSheetFragment dailyScheduleBottomSheetFragment;
+    // 28.04.2023 - back-end instance variable for the radio group in the XML layout.
+    private RadioGroup daysRadioGroup;
 
+    private int selectedRadioButtonId;
+    private RadioButton selectedRadioButton;
+    private Day selectedDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_schedule);
-        weeklyScheduleMondayButton = findViewById(R.id.weekly_sch_monday_button);
 
-        // 28.03.2023 - instantiate DailyScheduleBottomSheetFragment and specify how it will
-        // behave in user interactions.
-//        dailyScheduleBottomSheetFragment = new DailyScheduleBottomSheetFragment();
-//        ConstraintLayout constraintLayout = findViewById(R.id.bottomSheet);
-//
-//        BottomSheetBehavior<ConstraintLayout> bottomSheetBehavior =
-//                BottomSheetBehavior.from(constraintLayout);
-//
-//        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.STATE_HIDDEN);
-//
-        // 09.04.2023 - when the user clicks on the button for the day (right now, just Monday, MON)
-        // go to the other activity.
-        weeklyScheduleMondayButton.setOnClickListener(v -> {
-            Intent intent = new Intent(WeeklySchedule.this, ScheduleProgrammer.class);
-            startActivity(intent);
+        // 28.04.2023 - first match the instance variable with the GUI widget user interacts with.
+        daysRadioGroup = findViewById(R.id.days_radioGroup);
+
+        // 28.04.2023 - this is the backend code that gets executed when the user clicks on any
+        // of the day radio buttons in the RadioGroup.
+        daysRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            selectedRadioButtonId = checkedId;
+            selectedRadioButton = findViewById(selectedRadioButtonId);
+            if (selectedRadioButton.getId() == R.id.monday_radioButton) {
+                selectedDay = Day.MONDAY;
+            } else if (selectedRadioButton.getId() == R.id.tuesday_radioButton) {
+                selectedDay = Day.TUESDAY;
+            } else if (selectedRadioButton.getId() == R.id.wednesday_radioButton) {
+                selectedDay = Day.WEDNESDAY;
+            } else if (selectedRadioButton.getId() == R.id.thursday_radioButton) {
+                selectedDay = Day.THURSDAY;
+            } else if (selectedRadioButton.getId() == R.id.friday_radioButton) {
+                selectedDay = Day.FRIDAY;
+            } else if (selectedRadioButton.getId() == R.id.saturday_radioButton) {
+                selectedDay = Day.SATURDAY;
+            } else if (selectedRadioButton.getId() == R.id.sunday_radioButton) {
+                selectedDay = Day.SUNDAY;
+            } else {
+                selectedDay = Day.MONDAY;
+            }
+            Log.d("DAYS_RADIO_GROUP", "onCreate -> Button Clicked: " + selectedDay.toString());
+            // Ok...let's switch to the ScheduleProgramer activity.
+            Intent switchActivityIntent = new Intent(WeeklySchedule.this,
+                    ScheduleProgrammer.class);
+            switchActivityIntent.putExtra("daySelected", selectedDay);
+            startActivity(switchActivityIntent);
+
+
         });
+
+
+
     }
-
-    // 28.03.2023 - this is the method to actually display the bottom sheet fragment.
-//    private void showDailyScheduleBottomSheet() {
-//        dailyScheduleBottomSheetFragment.show(getSupportFragmentManager(),
-//                dailyScheduleBottomSheetFragment.getTag());
-//    }
-
 
 
 

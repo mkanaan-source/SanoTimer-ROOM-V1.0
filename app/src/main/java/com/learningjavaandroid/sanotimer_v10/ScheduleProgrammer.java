@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.learningjavaandroid.sanotimer_v10.model.DailySchedule;
+import com.learningjavaandroid.sanotimer_v10.model.Day;
 import com.learningjavaandroid.sanotimer_v10.model.IrrigationViewModel;
 
 public class ScheduleProgrammer extends AppCompatActivity {
@@ -28,6 +31,14 @@ public class ScheduleProgrammer extends AppCompatActivity {
     // fragment (SanoTimerTimePickerDialogFragment).
     private IrrigationViewModel irrigationViewModel;
 
+    private static final String TEST_CTRLR = "test_controller";
+    private static final int VALVE = 3;
+    private static final Day day = Day.MONDAY;
+
+    // 28.04.2023 - title textview.
+    private TextView sch_programmer_textview;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +50,19 @@ public class ScheduleProgrammer extends AppCompatActivity {
         addStartTimeFab = findViewById(R.id.sch_prog_add_start_time_fab);
         addStopTimeFab = findViewById(R.id.sch_prog_add_stop_time_fab);
         addScheduleItemButton = findViewById(R.id.sch_prog_add_button);
+
+        // 28.04.2023 - match GUI title textview widget with the appropriate instance variable
+        sch_programmer_textview = findViewById(R.id.sch_program_textview);
+
+        // 28.04.2023 - get the Intent object coming in from WeeklySchedule activity and
+        // use it to set the title textview on this activity.
+        Bundle extraData = getIntent().getExtras();
+        if (extraData != null) {
+            Day day = (Day) extraData.get("daySelected");
+            String textData = "View or edit schedule data for " + day.toString();
+            sch_programmer_textview.setText(textData);
+        }
+
 
         // 11.04.2023 - instantiate the ViewModel class (or retrieve it if it already exists).
         // Note: this ViewModel has APPLICATION-level scope.
@@ -67,9 +91,6 @@ public class ScheduleProgrammer extends AppCompatActivity {
             showTimePickerDialog(viewStopTimeFab);
         });
 
-        // TODO: 14.04.2023 - add the onClickListener() here to write schedule data
-        //  into the database.
-
         // 12.04.2023 - set up the observe() methods here for the LiveData objects
         // pertaining to the start and stop times defined in the ViewModel.
 
@@ -79,6 +100,21 @@ public class ScheduleProgrammer extends AppCompatActivity {
 
         irrigationViewModel.getStopTime().observe(this, stopTime -> {
             stopTimeEditText.setText(stopTime);
+        });
+
+        // 18.04.2023 - OK.....now write the data to the database.
+        addScheduleItemButton.setOnClickListener(v -> {
+
+            String timeStart = startTimeEditText.getText().toString().trim();
+            String timeStop = stopTimeEditText.getText().toString().trim();
+
+            // TODO: 24.04.2023 - we come up with a DailySchedule object with some amount of
+            // TODO: hardcoded data so we could test the data being written into the database.
+            // TODO: Normally, all fields of the DailySchedule should be set based on info provided by user.
+
+            DailySchedule dailySchedule = new DailySchedule(TEST_CTRLR, VALVE, day, timeStart, timeStop);
+            IrrigationViewModel.insert(dailySchedule);
+
         });
 
 

@@ -13,5 +13,13 @@
     <string name="sch_programmer_textview">Add Irrigation Schedule</string>
     <string name="sch_programmer_start_time">Start Time</string>
     <string name="sch_prog_stop_time_text">Stop Time</string>
-    <string name="sch_prog_add_item_button">Add Schedule Item</string>
+    <string name="sch_prog_add_item_button">Add New Schedule Item</string>
+    <string name="mon_radiobutton_text">MONDAY</string>
+    <string name="tue_radiobutton_text">TUESDAY</string>
+    <string name="wed_radiobutton_text">WEDNESDAY</string>
+    <string name="thu_radiobutton_text">THURSDAY</string>
+    <string name="fri_radiobutton_text">FRIDAY</string>
+    <string name="sat_radiobutton_text">SATURDAY</string>
+    <string name="sun_radiobutton_text">SUNDAY</string>
+    <string name="weekly_sch_info_text">To view or edit schedule information for a specific day, tap on one of the buttons below.</string>
 </resources>

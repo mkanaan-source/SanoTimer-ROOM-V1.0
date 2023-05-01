@@ -14,25 +14,17 @@ public class DailySchedule {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "controllerId")
     private String controllerId;
 
-    @ColumnInfo(name = "valveId")
     private int valveId;
 
-    @ColumnInfo(name = "willWork")
-    private Boolean willWork;
-
-    // TODO - 12.02.2023 - might be a better idea to specify days as ENUM data type.
-    @ColumnInfo(name = "Day")
-    private int day;
+    // 24.04.2023 - now we specify days as ENUM data type.
+    private Day day;
 
     // 04.04.2023 - this is now a string of the form "HH:MM".
-    @ColumnInfo(name = "startTime")
     private String startTime;
 
     // 04.04.2023 - this is now a string of the form "HH:MM".
-    @ColumnInfo(name = "stopTime")
     private String stopTime;
 
     // 01.02.2023 - constructors
@@ -40,10 +32,9 @@ public class DailySchedule {
     }
 
     public DailySchedule(@NonNull String controllerId, int valveId,
-                         @NonNull Boolean willWork, int day, String startTime, String stopTime) {
+                         Day day, String startTime, String stopTime) {
         this.controllerId = controllerId;
         this.valveId = valveId;
-        this.willWork = willWork;
         this.day  = day;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -74,19 +65,11 @@ public class DailySchedule {
         this.valveId = valveId;
     }
 
-    public Boolean getWillWork() {
-        return willWork;
-    }
-
-    public void setWillWork(@NonNull Boolean willWork) {
-        this.willWork = willWork;
-    }
-
-    public int getDay() {
+    public Day getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(Day day) {
         this.day = day;
     }
 
