@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.learningjavaandroid.sanotimer_v10.DailyScheduleBottomSheetFragment;
 import com.learningjavaandroid.sanotimer_v10.R;
 import com.learningjavaandroid.sanotimer_v10.ScheduleProgrammer;
+import com.learningjavaandroid.sanotimer_v10.util.IrrigationRoomDatabase;
 
 // 26.04.2023 - we deleted a bunch of stuff since we changed the layout of the
 // activity_weekly_schedule.xml file. The backend code now reflects these changes.
@@ -32,6 +33,7 @@ public class WeeklySchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_schedule);
+
 
         // 28.04.2023 - first match the instance variable with the GUI widget user interacts with.
         daysRadioGroup = findViewById(R.id.days_radioGroup);

@@ -81,7 +81,14 @@ public class IrrigationViewModel extends AndroidViewModel {
 
     public LiveData<List<DailySchedule>> getFullSchedule() { return fullSchedule; }
 
-    public static void insert(DailySchedule dailySchedule) { irrigationRepository.insert(dailySchedule);}
+    public static void insert(DailySchedule dailySchedule) {
+        irrigationRepository.insert(dailySchedule);
+    }
+
+    // 02.05.2023 - the method we need to pull schedule data for a specific day
+    public LiveData<List<DailySchedule>> getDailyScheduleRecords(Day day) {
+        return irrigationRepository.getDailyScheduleRecords(day);
+    }
 
 //    public String formatTime(int hour, int minute) {
 //        return Utils.timeFromIntToString(hour, minute);

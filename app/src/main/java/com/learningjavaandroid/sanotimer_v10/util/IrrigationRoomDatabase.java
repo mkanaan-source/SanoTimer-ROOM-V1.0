@@ -45,6 +45,9 @@ public abstract class IrrigationRoomDatabase extends RoomDatabase {
                 }
             }
         }
+        // 08.05.2023 - included the line below to force-open the database.
+        INSTANCE.getOpenHelper().getWritableDatabase();
+
         return INSTANCE;
     }
 

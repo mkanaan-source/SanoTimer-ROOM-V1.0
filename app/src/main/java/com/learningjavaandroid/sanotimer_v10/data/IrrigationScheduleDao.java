@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.learningjavaandroid.sanotimer_v10.model.DailySchedule;
+import com.learningjavaandroid.sanotimer_v10.model.Day;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public interface IrrigationScheduleDao {
 /*
 TODO 01.02.2023 - the next few methods are the rest of the CRUD methods we need to implement.
  */
+
+    // 02.05.2023 - this is the method we need to pull data from the database for a specific day
+    @Query("SELECT * FROM irrigation_schedule_table WHERE irrigation_schedule_table.day = :irrDay")
+    LiveData<List<DailySchedule>> getDailyScheduleRecords(Day irrDay);
  
 /*
     DailySchedule retrieve(int id);

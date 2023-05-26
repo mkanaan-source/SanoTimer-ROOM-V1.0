@@ -22,4 +22,5 @@
     <string name="sat_radiobutton_text">SATURDAY</string>
     <string name="sun_radiobutton_text">SUNDAY</string>
     <string name="weekly_sch_info_text">To view or edit schedule information for a specific day, tap on one of the buttons below.</string>
+    <string name="no_sch_items_text">No schedule items for that day. To add a new schedule item tap button below.</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.learningjavaandroid.sanotimer_v10.util;
 
+import android.util.Log;
+
 import androidx.room.TypeConverter;
 
 import com.learningjavaandroid.sanotimer_v10.model.Day;

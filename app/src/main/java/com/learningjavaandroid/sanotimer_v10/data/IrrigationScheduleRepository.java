@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.learningjavaandroid.sanotimer_v10.model.DailySchedule;
+import com.learningjavaandroid.sanotimer_v10.model.Day;
 import com.learningjavaandroid.sanotimer_v10.util.IrrigationRoomDatabase;
 
 import java.util.List;
@@ -29,6 +30,11 @@ public class IrrigationScheduleRepository {
         IrrigationRoomDatabase.irrDbWriteExecutor.execute( () -> {
             irrigationScheduleDao.insert(dailySchedule);
         });
+    }
+
+    // 02.05.2023 - the method we need to pull schedule data for a specific day
+    public LiveData<List<DailySchedule>> getDailyScheduleRecords(Day day) {
+        return irrigationScheduleDao.getDailyScheduleRecords(day);
     }
 
 }

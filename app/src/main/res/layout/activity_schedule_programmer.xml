@@ -15,109 +15,47 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
-
-    <EditText
-        android:id="@+id/sch_prog_start_time_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:inputType="time"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:autofillHints="" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="135dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/sch_programmer_start_time"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sch_program_textview" />
+        app:layout_constraintVertical_bias="0.052" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sch_prog_add_start_time_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="60dp"
+        android:id="@+id/sch_prog_add_new_item_fab"
+        android:layout_width="64dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.717"
-        app:layout_constraintStart_toEndOf="@+id/sch_prog_start_time_field"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
-        android:contentDescription="TODO" />
-
-    <TextView
-        android:id="@+id/textview3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/sch_prog_stop_time_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sch_prog_start_time_field" />
-
-    <EditText
-        android:id="@+id/sch_prog_stop_time_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:inputType="time"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview3"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:autofillHints="" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sch_prog_add_stop_time_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.311"
-        app:layout_constraintStart_toEndOf="@+id/sch_prog_stop_time_field"
-        app:layout_constraintTop_toBottomOf="@+id/textview3"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
-        android:contentDescription="TODO" />
-
-    <Button
-        android:id="@+id/sch_prog_add_button"
-        android:layout_width="277dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="88dp"
-        android:text="@string/sch_prog_add_item_button"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.899"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sch_prog_add_stop_time_fab"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sch_prog_recyclerView"
+        android:layout_width="384dp"
+        android:layout_height="397dp"
+        app:layout_constraintBottom_toTopOf="@+id/sch_prog_add_new_item_fab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sch_program_textview"
+        app:layout_constraintVertical_bias="0.828" />
+
+    <TextView
+        android:id="@+id/no_sch_textView"
+        android:layout_width="363dp"
+        android:layout_height="96dp"
+        android:text="@string/no_sch_items_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/sch_prog_recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sch_program_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

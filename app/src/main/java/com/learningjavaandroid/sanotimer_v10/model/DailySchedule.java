@@ -6,6 +6,7 @@ package com.learningjavaandroid.sanotimer_v10.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "irrigation_schedule_table")
@@ -28,6 +29,7 @@ public class DailySchedule {
     private String stopTime;
 
     // 01.02.2023 - constructors
+    @Ignore
     public DailySchedule() {
     }
 
@@ -87,6 +89,20 @@ public class DailySchedule {
 
     public void setStopTime(String stopTime) {
         this.stopTime = stopTime;
+    }
+
+    // 02.05.2023 - this is an override method so we can see a text dump of the contents of a
+    // DailySchedule object on the console.....just for testing purposes.
+    @Override
+    public String toString() {
+        return "DailySchedule{" +
+                "id=" + id +
+                ", controllerId='" + controllerId + '\'' +
+                ", valveId=" + valveId +
+                ", day=" + day +
+                ", startTime='" + startTime + '\'' +
+                ", stopTime='" + stopTime + '\'' +
+                '}';
     }
 }
 
