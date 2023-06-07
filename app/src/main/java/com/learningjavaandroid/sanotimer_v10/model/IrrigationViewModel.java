@@ -1,6 +1,7 @@
 package com.learningjavaandroid.sanotimer_v10.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -90,6 +91,23 @@ public class IrrigationViewModel extends AndroidViewModel {
         return irrigationRepository.getDailyScheduleRecords(day);
     }
 
+    // 28.05.2023 - the method to check for duplicate records with the SAME DAY AND START TIME
+    public void checkForDuplicateRecords(Day day, String startTime) {
+
+        // 07.06.2023 - the reason why we have the Callback object here as a parameter is
+        // because we want to run this task in a background thread but return the result to the
+        // main thread.
+        irrigationRepository.checkForDuplicateRecords(day, startTime,
+                new IrrigationScheduleRepository.Callback() {
+                    @Override
+                    public void onDuplicateRecordsFound(int countDuplicates) {
+                        // TODO: 07.06.2023 - for now we will add just a log.d here for testing.
+                        // TODO: But normally, this is where we would update UI components etc.
+                        Log.d("DUP_REC", "onDuplicateRecordsFound -> # of duplicates: "
+                                + countDuplicates);
+                    }
+                });
+    }
 //    public String formatTime(int hour, int minute) {
 //        return Utils.timeFromIntToString(hour, minute);
 //    }

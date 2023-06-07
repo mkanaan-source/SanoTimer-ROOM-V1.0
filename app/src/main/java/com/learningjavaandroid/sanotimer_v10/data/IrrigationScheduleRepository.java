@@ -1,6 +1,8 @@
 package com.learningjavaandroid.sanotimer_v10.data;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 
@@ -16,6 +18,12 @@ public class IrrigationScheduleRepository {
     private IrrigationScheduleDao irrigationScheduleDao;
     private LiveData<List<DailySchedule>> fullSchedule;
 
+    // 07.06.2023 - new interface to run tasks in a background thread and return result to
+    // main thread.
+    public interface Callback {
+        void onDuplicateRecordsFound(int countDuplicates);
+    }
+
     // 09.02.2023 - constructor
     public IrrigationScheduleRepository(Application application) {
         IrrigationRoomDatabase irrDb = IrrigationRoomDatabase.getDatabase(application);
@@ -27,7 +35,7 @@ public class IrrigationScheduleRepository {
     public LiveData<List<DailySchedule>> getFullSchedule() { return fullSchedule; }
 
     public void insert(DailySchedule dailySchedule) {
-        IrrigationRoomDatabase.irrDbWriteExecutor.execute( () -> {
+        IrrigationRoomDatabase.irrDbOpExecutor.execute( () -> {
             irrigationScheduleDao.insert(dailySchedule);
         });
     }
@@ -35,6 +43,28 @@ public class IrrigationScheduleRepository {
     // 02.05.2023 - the method we need to pull schedule data for a specific day
     public LiveData<List<DailySchedule>> getDailyScheduleRecords(Day day) {
         return irrigationScheduleDao.getDailyScheduleRecords(day);
+    }
+
+    // 28.05.2023 - the method to check for duplicate records with the SAME DAY AND START TIME
+    public void checkForDuplicateRecords(Day day, String startTime, Callback callback) {
+//        return irrigationScheduleDao.checkForDuplicateRecords(day, startTime);
+       // 07.06.2023 - run the check for duplicate records in a background thread.
+        IrrigationRoomDatabase.irrDbOpExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                int duplicateCount = irrigationScheduleDao.checkForDuplicateRecords(day, startTime);
+
+                // 07.06.2023 - return result to main thread using the Callback.
+                Handler mainHandler = new Handler(Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onDuplicateRecordsFound(duplicateCount);
+                    }
+                });
+
+            }
+        });
     }
 
 }

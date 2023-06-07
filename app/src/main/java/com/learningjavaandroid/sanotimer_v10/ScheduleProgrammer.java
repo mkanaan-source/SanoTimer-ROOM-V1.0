@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.learningjavaandroid.sanotimer_v10.adapter.RecyclerViewAdapter;
 import com.learningjavaandroid.sanotimer_v10.adapter.ScheduleItemClickListener;
 import com.learningjavaandroid.sanotimer_v10.model.DailySchedule;
@@ -95,6 +92,11 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
             // and display it on the screen.
             specificDailySchedule = irrigationViewModel.getDailyScheduleRecords(day);
 
+            // 07.06.2023 - temporary code to test for checking duplicate records.
+            // Note: duplicate records are defined as records with the same day and start time.
+            irrigationViewModel.checkForDuplicateRecords(Day.MONDAY, "07:00");
+
+
             if (specificDailySchedule != null) {
                 // 12.05.2023 - ok, set up the observer for the LiveData object.
                 // let's see if this one helps us get to that daily schedule list.
@@ -106,6 +108,12 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
                         //Log.d("DS", "onCreate: no schedule records for " + day.toString());
                         textView2.setVisibility(View.VISIBLE);
                     } else {
+                        // 27.05.2023 - we want the list sorted in ascending order by start time.
+                        // the code below does the sorting.
+                        dailyScheduleList.sort((o1, o2) -> o1.getStartTime().compareTo(o2.getStartTime()));
+
+
+
                         // 15.05.2023 - invoke the RecyclerViewAdapter and associate the
                         // RecyclerView with the RecyclerViewAdapter.
                         recyclerViewAdapter = new RecyclerViewAdapter(dailyScheduleList,

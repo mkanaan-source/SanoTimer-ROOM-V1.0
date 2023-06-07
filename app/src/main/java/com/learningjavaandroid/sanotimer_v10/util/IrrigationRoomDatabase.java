@@ -29,7 +29,7 @@ public abstract class IrrigationRoomDatabase extends RoomDatabase {
     // 07.02.2023 - this is the part of the code that will make this db object a SINGLETON
     private static volatile IrrigationRoomDatabase INSTANCE;
 
-    public static final ExecutorService irrDbWriteExecutor =
+    public static final ExecutorService irrDbOpExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     // 09.02.2023 - the method that will return the single instance of
@@ -59,7 +59,7 @@ public abstract class IrrigationRoomDatabase extends RoomDatabase {
                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                     super.onCreate(db);
 
-                    irrDbWriteExecutor.execute(()->{
+                    irrDbOpExecutor.execute(()->{
                         IrrigationScheduleDao irrigationScheduleDao
                                 = INSTANCE.irrigationScheduleDao();
                         irrigationScheduleDao.deleteAll();

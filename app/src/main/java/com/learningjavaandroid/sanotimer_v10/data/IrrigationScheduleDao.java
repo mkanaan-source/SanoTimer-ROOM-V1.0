@@ -32,7 +32,11 @@ TODO 01.02.2023 - the next few methods are the rest of the CRUD methods we need 
     // 02.05.2023 - this is the method we need to pull data from the database for a specific day
     @Query("SELECT * FROM irrigation_schedule_table WHERE irrigation_schedule_table.day = :irrDay")
     LiveData<List<DailySchedule>> getDailyScheduleRecords(Day irrDay);
- 
+
+    // 28.05.2023 - the method to check for duplicate records with the SAME DAY AND START TIME
+    @Query("SELECT COUNT(*) FROM irrigation_schedule_table WHERE " +
+            "irrigation_schedule_table.day = :irrDay AND irrigation_schedule_table.startTime = :sTime")
+    int checkForDuplicateRecords(Day irrDay, String sTime);
 /*
     DailySchedule retrieve(int id);
 
