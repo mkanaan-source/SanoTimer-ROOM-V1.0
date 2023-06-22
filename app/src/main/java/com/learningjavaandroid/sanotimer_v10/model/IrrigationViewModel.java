@@ -145,8 +145,6 @@ public class IrrigationViewModel extends AndroidViewModel {
             }
         });
     }
-//    public String formatTime(int hour, int minute) {
-//        return Utils.timeFromIntToString(hour, minute);
-//    }
+
 
 }
