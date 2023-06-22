@@ -5,11 +5,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.learningjavaandroid.sanotimer_v10.MainActivity;
 import com.learningjavaandroid.sanotimer_v10.data.IrrigationScheduleRepository;
+import com.learningjavaandroid.sanotimer_v10.util.SanoTimerLifecycleOwner;
 import com.learningjavaandroid.sanotimer_v10.util.Utils;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
 public class IrrigationViewModel extends AndroidViewModel {
 
     public static IrrigationScheduleRepository irrigationRepository;
-    public final LiveData<List<DailySchedule>> fullSchedule;
+    //public final LiveData<List<DailySchedule>> fullSchedule;
 
     // 14.04.2023 - code to make IrrigationViewModel a SINGLETON
     private static volatile IrrigationViewModel INSTANCE;
@@ -76,11 +79,11 @@ public class IrrigationViewModel extends AndroidViewModel {
     public IrrigationViewModel(@NonNull Application application) {
         super(application);
         irrigationRepository = new IrrigationScheduleRepository(application);
-        fullSchedule = irrigationRepository.getFullSchedule();
+        //fullSchedule = irrigationRepository.getFullSchedule();
 
     }
 
-    public LiveData<List<DailySchedule>> getFullSchedule() { return fullSchedule; }
+    //public LiveData<List<DailySchedule>> getFullSchedule() { return fullSchedule; }
 
     public static void insert(DailySchedule dailySchedule) {
         irrigationRepository.insert(dailySchedule);
@@ -107,6 +110,40 @@ public class IrrigationViewModel extends AndroidViewModel {
                                 + countDuplicates);
                     }
                 });
+    }
+
+    // 19.06.2023 - trying to fix the crash issue due to the new implementation of getFullSchedule
+    // that is designed to run in a background thread and return results to the main thread.
+    // To solve this, we need to come up with our own LifecycleOwner object.
+    SanoTimerLifecycleOwner lifecycleOwner = new SanoTimerLifecycleOwner();
+
+    // 12.06.2023 - the method that will get the full schedule from the database
+    public void getFullSchedule() {
+        irrigationRepository.getFullSchedule(new IrrigationScheduleRepository.Callback_fullSchedule() {
+
+            // 12.06.2023 - this is the concrete implementation of the method that gets executed
+            // after the getFullSchedule() method gets executed in a background thread. FOR NOW,
+            // the implementation just includes log.d messages for testing.
+            @Override
+            public void onGetFullSchedule(LiveData<List<DailySchedule>> fullSchedule) {
+                // 13.06.2023 - set up an observer for the LiveData object first.
+                // 19.06.2023 - now pass the 'lifecycleOwner' object to the 'observe' method
+                // to fix the crash issue.
+                fullSchedule.observe(lifecycleOwner, dailySchedules -> {
+                    List<DailySchedule> dailyScheduleList = fullSchedule.getValue();
+                    if (dailyScheduleList != null) {
+                        for (DailySchedule dailySchedule : dailyScheduleList) {
+                            Log.d("FULL_SCHEDULE", "onGetFullSchedule: "
+                                    + dailySchedule.getDay() + " " + dailySchedule.getStartTime()
+                                    + " " + dailySchedule.getStopTime());
+                        }
+                    } else {
+                        Log.d("FULL_SCHEDULE", "onGetFullSchedule: dailySchedule is NULL! :(");
+                    }
+
+                });
+            }
+        });
     }
 //    public String formatTime(int hour, int minute) {
 //        return Utils.timeFromIntToString(hour, minute);

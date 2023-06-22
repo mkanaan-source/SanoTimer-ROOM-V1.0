@@ -21,7 +21,16 @@ public class IrrigationScheduleRepository {
     // 07.06.2023 - new interface to run tasks in a background thread and return result to
     // main thread.
     public interface Callback {
+        // 07.06.2023 - method that will be called by the Callback on return to the main thread
+        // when the checkForDuplicateRecords() method is executed on the background thread.
         void onDuplicateRecordsFound(int countDuplicates);
+
+
+    }
+
+    // 12.06.2023 - a new interface to handle the results of the getFullSchedule() method.
+    public interface Callback_fullSchedule {
+        void onGetFullSchedule(LiveData<List<DailySchedule>> fullSchedule);
     }
 
     // 09.02.2023 - constructor
@@ -29,10 +38,33 @@ public class IrrigationScheduleRepository {
         IrrigationRoomDatabase irrDb = IrrigationRoomDatabase.getDatabase(application);
         irrigationScheduleDao = irrDb.irrigationScheduleDao();
 
-        fullSchedule = irrigationScheduleDao.getFullSchedule();
+//        fullSchedule = irrigationScheduleDao.getFullSchedule();
+
+
     }
 
-    public LiveData<List<DailySchedule>> getFullSchedule() { return fullSchedule; }
+    //public LiveData<List<DailySchedule>> getFullSchedule() { return fullSchedule; }
+
+    // 08.06.2023 - here is an improved implementation of getFullSchedule() that runs in a
+    // background thread and returns the result to the main thread.
+    public void getFullSchedule(Callback_fullSchedule callback) {
+        IrrigationRoomDatabase.irrDbOpExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                 fullSchedule = irrigationScheduleDao.getFullSchedule();
+
+                // 07.06.2023 - return result to main thread using the Callback.
+                Handler mainHandler = new Handler(Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onGetFullSchedule(fullSchedule);
+                    }
+                });
+
+            }
+        });
+    }
 
     public void insert(DailySchedule dailySchedule) {
         IrrigationRoomDatabase.irrDbOpExecutor.execute( () -> {

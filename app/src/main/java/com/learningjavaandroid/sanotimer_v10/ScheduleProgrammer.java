@@ -80,6 +80,7 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
 
 
 
+
         // 28.04.2023 - get the Intent object coming in from WeeklySchedule activity and
         // use it to set the title textview on this activity.
         Bundle extraData = getIntent().getExtras();
@@ -133,6 +134,10 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
                 Log.d("DS", "onCreate: specificDailySchedule is NULL :(");
             }
         }
+
+        // 12.06.2023 - temp code to test the new implementation of the getFullSchedule() method
+        // that runs in the background thread.
+        irrigationViewModel.getFullSchedule();
 
 
         // 11.04.2023 - instantiate the ViewModel class (or retrieve it if it already exists).
