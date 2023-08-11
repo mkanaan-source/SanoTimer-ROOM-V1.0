@@ -23,4 +23,8 @@
     <string name="sun_radiobutton_text">SUNDAY</string>
     <string name="weekly_sch_info_text">To view or edit schedule information for a specific day, tap on one of the buttons below.</string>
     <string name="no_sch_items_text">No schedule items for that day. To add a new schedule item tap button below.</string>
+    <string name="record_delete_button">record delete image button</string>
+    <string name="start_time">Start Time</string>
+    <string name="stop_time">Stop Time</string>
+    <string name="record_delete">record_delete</string>
 </resources>

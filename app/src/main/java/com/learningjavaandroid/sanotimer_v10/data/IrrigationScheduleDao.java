@@ -22,12 +22,18 @@ public interface IrrigationScheduleDao {
     @Query("DELETE FROM irrigation_schedule_table")
     void deleteAll();
 
+    // 26.07.2023 - new method to delete a specific record from the database.
+    @Query("DELETE from irrigation_schedule_table where irrigation_schedule_table.id ==:id")
+    void delete(long id);
+
     @Query("SELECT * FROM irrigation_schedule_table")
     LiveData< List<DailySchedule> > getFullSchedule();
 
-/*
-TODO 01.02.2023 - the next few methods are the rest of the CRUD methods we need to implement.
- */
+
+
+    // 04.07.2023 - here is the method to retrieve a specific record from the database.
+    @Query("SELECT * FROM irrigation_schedule_table WHERE irrigation_schedule_table.id ==:id")
+    LiveData<DailySchedule> getRecord(long id);
 
     // 02.05.2023 - this is the method we need to pull data from the database for a specific day
     @Query("SELECT * FROM irrigation_schedule_table WHERE irrigation_schedule_table.day = :irrDay")
@@ -42,7 +48,7 @@ TODO 01.02.2023 - the next few methods are the rest of the CRUD methods we need 
 
     void update(DailySchedule dailySchedule);
 
-    void delete(DailySchedule dailySchedule);
+
 */
 
 

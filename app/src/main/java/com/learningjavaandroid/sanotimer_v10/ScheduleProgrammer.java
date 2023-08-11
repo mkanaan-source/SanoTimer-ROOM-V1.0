@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.learningjavaandroid.sanotimer_v10.adapter.RecyclerViewAdapter;
@@ -50,6 +51,9 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
+    // 02.08.2023 - here's the instance variable for the Delete ImageButton on the RecyclerView.
+    private ImageButton deleteImageButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +79,6 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
         // will use the LinearLayoutManager (because this is what we used in the GUI layout for
         // the RecyclerView GUI widget; see activity_schedule_programmer.xml).
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
-
 
         // 28.04.2023 - get the Intent object coming in from WeeklySchedule activity and
         // use it to set the title textview on this activity.
@@ -118,7 +117,7 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
                         // 15.05.2023 - invoke the RecyclerViewAdapter and associate the
                         // RecyclerView with the RecyclerViewAdapter.
                         recyclerViewAdapter = new RecyclerViewAdapter(dailyScheduleList,
-                                this);
+                                this, irrigationViewModel);
                         recyclerView.setAdapter(recyclerViewAdapter);
 
                         // 25.05.2023 - test code to see how big the list is:
@@ -137,7 +136,7 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
 
         // 12.06.2023 - temp code to test the new implementation of the getFullSchedule() method
         // that runs in the background thread.
-        irrigationViewModel.getFullSchedule();
+        //irrigationViewModel.getFullSchedule();
 
 
         // 11.04.2023 - instantiate the ViewModel class (or retrieve it if it already exists).
@@ -192,9 +191,12 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
 //
 //        });
 
+        // 06.07.2023 - here is some test code to check the getRecord() chain of methods from the
+        // ViewModel on down.
+        //irrigationViewModel.getRecord(8);
 
-
-
+        // 27.07.2023 - here is some more test code to show the DELETE function for a specific record
+        //irrigationViewModel.delete(4);
     }
 
     public void showTimePickerDialog(View v) {
@@ -215,4 +217,8 @@ public class ScheduleProgrammer extends AppCompatActivity implements ScheduleIte
                 + dailySchedule.getStartTime() + " stop time: " + dailySchedule.getStopTime());
 
     }
+
+
+
+
 }

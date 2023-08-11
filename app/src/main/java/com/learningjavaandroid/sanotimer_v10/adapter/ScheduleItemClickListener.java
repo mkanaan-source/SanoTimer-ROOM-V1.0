@@ -12,4 +12,6 @@ public interface ScheduleItemClickListener {
     // since it is part of an INTERFACE class; the concrete implementation will happen at the
     // concrete class (i.e. ACTIVITY) level.
     void onScheduleItemClick(DailySchedule dailySchedule);
+
+
 }

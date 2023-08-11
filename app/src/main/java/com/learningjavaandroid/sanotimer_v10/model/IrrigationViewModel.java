@@ -16,6 +16,7 @@ import com.learningjavaandroid.sanotimer_v10.util.SanoTimerLifecycleOwner;
 import com.learningjavaandroid.sanotimer_v10.util.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class IrrigationViewModel extends AndroidViewModel {
 
@@ -145,6 +146,28 @@ public class IrrigationViewModel extends AndroidViewModel {
             }
         });
     }
+
+    // 04.07.2023 - the ViewModel-level implementation of the getRecord() method that will get
+    // a specific record from the database.
+    public void getRecord(long id) {
+        irrigationRepository.getRecord(id, new IrrigationScheduleRepository.Callback_getRecord() {
+            @Override
+            public void onGetRecord(LiveData<DailySchedule> scheduleRecord) {
+                scheduleRecord.observe(lifecycleOwner, dailySchedule -> {
+                    // 05.07.2023 - note: this is the code that gets executed when a SINGLE
+                    // record is pulled from the database. FOR NOW, we just put in a log.d for testing.
+                    Log.d("SCHEDULE_RECORD", "onGetRecord: "
+                            + Objects.requireNonNull(scheduleRecord.getValue()).toString());
+                });
+            }
+        });
+    }
+
+    // 26.07.2023 - the ViewModel-level implementation of the delete() method to delete a specific
+    // record from the database.
+    // 02.08.2023 - change the definition of this method to explicitly pass in a DailySchedule object.
+    public void delete(DailySchedule dailySchedule) { irrigationRepository.delete(dailySchedule); }
+
 
 
 }

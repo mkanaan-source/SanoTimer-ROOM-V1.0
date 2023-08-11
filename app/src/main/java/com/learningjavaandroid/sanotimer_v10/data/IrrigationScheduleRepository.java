@@ -18,6 +18,8 @@ public class IrrigationScheduleRepository {
     private IrrigationScheduleDao irrigationScheduleDao;
     private LiveData<List<DailySchedule>> fullSchedule;
 
+    private LiveData<DailySchedule> scheduleRecord;
+
     // 07.06.2023 - new interface to run tasks in a background thread and return result to
     // main thread.
     public interface Callback {
@@ -31,6 +33,11 @@ public class IrrigationScheduleRepository {
     // 12.06.2023 - a new interface to handle the results of the getFullSchedule() method.
     public interface Callback_fullSchedule {
         void onGetFullSchedule(LiveData<List<DailySchedule>> fullSchedule);
+    }
+
+    // 04.07.2023 - a new interface to handle the results of the getRecord() method.
+    public interface Callback_getRecord {
+        void onGetRecord(LiveData<DailySchedule> scheduleRecord);
     }
 
     // 09.02.2023 - constructor
@@ -66,9 +73,43 @@ public class IrrigationScheduleRepository {
         });
     }
 
+    // 04.07.2023 - implementation of the getRecord() method to run in a background thread and return
+    // results to the main thread.
+    public void getRecord(long id, Callback_getRecord callbackGetRecord) {
+        IrrigationRoomDatabase.irrDbOpExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                scheduleRecord = irrigationScheduleDao.getRecord(id);
+
+                // 04.07.2023 - now return the result to the main thread.
+                Handler mainHandler = new Handler(Looper.getMainLooper());
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() { callbackGetRecord.onGetRecord(scheduleRecord); }
+                });
+
+            }
+        });
+    }
+
     public void insert(DailySchedule dailySchedule) {
+        // 26.07.2023 - note: the lambda notation below is short for 'new Runnable()'.
         IrrigationRoomDatabase.irrDbOpExecutor.execute( () -> {
             irrigationScheduleDao.insert(dailySchedule);
+        });
+    }
+
+    // 26.07.2023 - the method to delete a specific record from the database.
+    // Note: this method runs in a background thread.
+    // 02.08.2023 - change method definition to explicitly pass in a DailySchedule object.
+    public void delete(DailySchedule dailySchedule) {
+        IrrigationRoomDatabase.irrDbOpExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // 02.08.2023 - first get the ID pertaining to the DailySchedule object to be deleted.
+                int id = dailySchedule.getId();
+                irrigationScheduleDao.delete(id);
+            }
         });
     }
 
